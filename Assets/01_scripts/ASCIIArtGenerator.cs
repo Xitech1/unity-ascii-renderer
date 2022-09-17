@@ -64,7 +64,6 @@ public class ASCIIArtGenerator : MonoBehaviour
         float g = color.g;
         float b = color.b;
         var total = r + g + b;
-        Debug.Log(total);
         return total / 3;
     }
 
@@ -73,6 +72,6 @@ public class ASCIIArtGenerator : MonoBehaviour
         int totalCharacterCount = ASCIICharacters.Length;
         int maxColorValue = 1;
         float steps = (float)maxColorValue / (float)totalCharacterCount;
-        return ASCIICharacters[Mathf.RoundToInt(steps * brightnessValue * 10)];
+        return ASCIICharacters[Mathf.RoundToInt(steps * (brightnessValue * 100))];
     }
 }
