@@ -1,4 +1,4 @@
-# unity ascii renderer
+# Unity real-time ASCII renderer
 A simple, not super effective, real-time ASCII art rendered (without shaders) for Unity.
 
 ### How to use
