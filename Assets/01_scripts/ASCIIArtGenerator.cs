@@ -6,12 +6,12 @@ using UnityEngine;
 public class ASCIIArtGenerator : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
-    private Texture2D mainCameraTexture;
     [SerializeField] private RenderTexture mainRenderTexture;
     [SerializeField] private TextMeshProUGUI ASCIIText;
     [SerializeField] private float alpha = 0;
     private string ASCIICharacters = "#%&Vi*.  ";
     private string fullScreenInASCII = "";
+    private Texture2D mainCameraTexture;
 
     void Start()
     {
