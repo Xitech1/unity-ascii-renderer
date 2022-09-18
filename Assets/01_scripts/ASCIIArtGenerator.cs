@@ -9,10 +9,10 @@ public class ASCIIArtGenerator : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private RenderTexture mainRenderTexture;
     [SerializeField] private TextMeshProUGUI ASCIIText;
-    [SerializeField] private float alpha = 0;
-    private string ASCIICharacters = "#%&Vi*.  ";
+    [SerializeField] private string ASCIICharacters = "#%&Vi*,. ";
+    private static int textureSize = 64;
     private Texture2D mainCameraTexture;
-    private StringBuilder fullASCIIText = new StringBuilder(64 * 64 + mspace.Length + (64 - 1 * newLine.Length));
+    private StringBuilder fullASCIIText = new StringBuilder(textureSize * textureSize + mspace.Length + (textureSize - 1 * newLine.Length));
     private static string mspace = "<mspace=mspace=10>";
     private static string newLine = "<br>";
 
@@ -34,21 +34,21 @@ public class ASCIIArtGenerator : MonoBehaviour
         {
             fullASCIIText.Clear();
 
-            mainCameraTexture = new Texture2D(64, 64);
+            mainCameraTexture = new Texture2D(textureSize, textureSize);
             RenderTexture.active = mainRenderTexture;
             mainCameraTexture.ReadPixels(new Rect(0, 0, mainCameraTexture.width, mainCameraTexture.height), 0, 0);
             mainCameraTexture.Apply();
 
             fullASCIIText.Append(mspace);
 
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < textureSize; i++)
             {
-                for (int j = 0; j < 64; j++)
+                for (int j = 0; j < textureSize; j++)
                 {
                     char character = GetCharacterForRGBColor(GetBrightnessValueOfPixelInTexture(i, j));
                     
                     fullASCIIText.Append(character);
-                    if (j == 63)
+                    if (j == textureSize - 1)
                     {
                         fullASCIIText.Append(newLine);
                     }
@@ -56,11 +56,6 @@ public class ASCIIArtGenerator : MonoBehaviour
             }
             ASCIIText.text = fullASCIIText.ToString();
         }
-    }
-
-    void GetCameraTexture()
-    {
-        
     }
 
     float GetBrightnessValueOfPixelInTexture(int x, int y)
