@@ -1,5 +1,5 @@
 # Unity real-time ASCII renderer
-A simple, not super effective, real-time ASCII art rendered (without shaders) for Unity.
+A simple, not super effective, real-time ASCII art renderer (without shaders) for Unity.
 
 ### How to use
 1. Download the project
