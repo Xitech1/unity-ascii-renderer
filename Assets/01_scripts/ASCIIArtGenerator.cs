@@ -10,7 +10,7 @@ public class ASCIIArtGenerator : MonoBehaviour
     [SerializeField] private RenderTexture mainRenderTexture;
     [SerializeField] private TextMeshProUGUI ASCIIText;
     [SerializeField] private float alpha = 0;
-    private string ASCIICharacters = "#%&Vi^*_-,.";
+    private string ASCIICharacters = "#%&Vi*.  ";
     private string fullScreenInASCII = "";
 
     void Start()
@@ -69,9 +69,6 @@ public class ASCIIArtGenerator : MonoBehaviour
 
     char GetCharacterForRGBColor(float brightnessValue)
     {
-        int totalCharacterCount = ASCIICharacters.Length;
-        int maxColorValue = 1;
-        float steps = (float)maxColorValue / (float)totalCharacterCount;
-        return ASCIICharacters[Mathf.RoundToInt(steps * (brightnessValue * 100))];
+        return ASCIICharacters[Mathf.RoundToInt(brightnessValue * (ASCIICharacters.Length - 1))];
     }
 }
