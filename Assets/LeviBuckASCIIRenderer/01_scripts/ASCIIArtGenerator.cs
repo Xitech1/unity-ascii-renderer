@@ -16,46 +16,41 @@ public class ASCIIArtGenerator : MonoBehaviour
     private static string mspace = "<mspace=mspace=10>";
     private static string newLine = "<br>";
 
-    void Start()
-    {
-
-    }
-
+    private WaitForEndOfFrame frameEnd = new WaitForEndOfFrame();
     void Update()
     {
         StartCoroutine(CreateASCII());
     }
-    WaitForEndOfFrame frameEnd = new WaitForEndOfFrame();
 
     IEnumerator CreateASCII()
     {
         yield return frameEnd;
-        if (mainCamera.activeTexture != null)
+        if (mainCamera.activeTexture == null)
+            yield return null;
+
+        fullASCIIText.Clear();
+
+        mainCameraTexture = new Texture2D(textureSize, textureSize);
+        RenderTexture.active = mainRenderTexture;
+        mainCameraTexture.ReadPixels(new Rect(0, 0, mainCameraTexture.width, mainCameraTexture.height), 0, 0);
+        mainCameraTexture.Apply();
+
+        fullASCIIText.Append(mspace);
+
+        for (int i = 0; i < textureSize; i++)
         {
-            fullASCIIText.Clear();
-
-            mainCameraTexture = new Texture2D(textureSize, textureSize);
-            RenderTexture.active = mainRenderTexture;
-            mainCameraTexture.ReadPixels(new Rect(0, 0, mainCameraTexture.width, mainCameraTexture.height), 0, 0);
-            mainCameraTexture.Apply();
-
-            fullASCIIText.Append(mspace);
-
-            for (int i = 0; i < textureSize; i++)
+            for (int j = 0; j < textureSize; j++)
             {
-                for (int j = 0; j < textureSize; j++)
-                {
-                    char character = GetCharacterForRGBColor(GetBrightnessValueOfPixelInTexture(i, j));
+                char character = GetCharacterForRGBColor(GetBrightnessValueOfPixelInTexture(i, j));
                     
-                    fullASCIIText.Append(character);
-                    if (j == textureSize - 1)
-                    {
-                        fullASCIIText.Append(newLine);
-                    }
+                fullASCIIText.Append(character);
+                if (j == textureSize - 1)
+                {
+                    fullASCIIText.Append(newLine);
                 }
             }
-            ASCIIText.text = fullASCIIText.ToString();
         }
+        ASCIIText.text = fullASCIIText.ToString();
     }
 
     float GetBrightnessValueOfPixelInTexture(int x, int y)

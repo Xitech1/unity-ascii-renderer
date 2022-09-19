@@ -812,6 +812,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   mainRenderTexture: {fileID: 8400000, guid: e2d8dbdd6b986474c8666261a0622366, type: 2}
   ASCIIText: {fileID: 182033504}
+  ASCIICharacters: '#%&Vi*,. '
 --- !u!4 &1051254739
 Transform:
   m_ObjectHideFlags: 0
